@@ -1,0 +1,66 @@
+// Create a base class called Vehicle with properties like make (string) and year (int), and a method displayInfo() to show these details.
+
+// Then, create two derived classes:
+
+// Car with an additional property numDoors (int) 
+// and a method displayCarInfo() that displays the vehicle’s basic information along with the number of doors.
+// Motorcycle with an additional property hasSidecar (bool) 
+// and a method displayMotorcycleInfo() that displays the vehicle’s basic information along with whether it has a sidecar.
+// In main(), create objects of Car and Motorcycle, set their properties, and display their information.
+#include<bits/stdc++.h>
+using namespace std;
+
+class Vehicle{
+    private:
+        string make;
+        int year;
+    public:
+        Vehicle(string s,int y){
+            make = s;
+            year = y;
+        }
+        
+        void displayInfo(){
+            cout << "Make: " << make << "\n";
+                cout << "Year: " << year << "\n";
+        }
+};
+class Car: public Vehicle{
+    private:
+        int numOfDoors;
+    public:
+        Car(string s,int y,int n) : Vehicle(s,y){
+            numOfDoors = n;
+        }
+        
+        void displayCarInfo(){
+            displayInfo();
+            cout << "No. of Doors: " << numOfDoors << "\n";
+        }
+};
+
+class Motorcycle: public Vehicle{
+    private:
+        bool hasSidecar;
+    public:
+        Motorcycle(string s,int y,bool h) : Vehicle(s,y){
+            hasSidecar = h;
+        }
+        
+        void displayMotorcycleInfo(){
+            displayInfo();
+            cout << "Has Side Car ? : " << hasSidecar << "\n";
+        }
+};
+
+
+int main(){
+    
+    Car car1("Maruti",2017,4);
+    Motorcycle m1("BMW",2021,false);
+    
+    car1.displayCarInfo();
+    m1.displayMotorcycleInfo();
+    
+    return 0;
+}
