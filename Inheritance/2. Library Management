@@ -1,0 +1,138 @@
+// Design a class hierarchy for a Library system that includes the following:
+
+// Base Class: LibraryItem
+
+// Properties:
+// title (string)
+// author (string)
+// publicationYear (int)
+// Methods:
+// A constructor to initialize these properties.
+// A virtual method displayInfo() to show the item details.
+// Derived Classes:
+
+// Book (inherits from LibraryItem)
+
+// Additional Property: numPages (int)
+// Methods:
+// A constructor to initialize all properties (including base class properties).
+// Override displayInfo() to include the number of pages.
+// Magazine (inherits from LibraryItem)
+
+// Additional Property: issueNumber (int)
+// Methods:
+// A constructor to initialize all properties (including base class properties).
+// Override displayInfo() to include the issue number.
+// Another Derived Class: EBook (inherits from Book)
+
+// Additional Property: fileSizeMB (double)
+// Methods:
+// A constructor to initialize all properties (including those from the Book and LibraryItem).
+// Override displayInfo() to include the file size.
+// Access Control:
+
+// Ensure that the properties of LibraryItem are protected.
+// Use appropriate access specifiers for derived classes.
+// Polymorphism:
+
+// In your main() function, create an array of LibraryItem* and populate it with Book, Magazine, and EBook objects.
+// Loop through the array and call displayInfo() on each item to demonstrate polymorphism.
+// Destructors:
+
+// Implement a virtual destructor in the LibraryItem class to ensure proper cleanup.
+
+// Objectives
+    // Implement the Class Hierarchy: Create the classes as described.
+    // Demonstrate Inheritance: Show the relationships between LibraryItem, Book, Magazine, and EBook.
+    // Override Methods: Provide specific implementations of displayInfo() in derived classes.
+    // Showcase Polymorphism: Use base class pointers to call overridden methods in derived classes.
+    // Use Proper Access Specifiers: Ensure encapsulation is maintained in your design.
+    // Handle Cleanup: Implement destructors correctly to manage memory.
+
+#include<bits/stdc++.h>
+using namespace std;
+
+class LibraryItem{
+    private:
+        string title;
+        string author;
+        int publicationYear;
+    public:
+        LibraryItem(string t,string auth,int py){
+            title = t;
+            author = auth;
+            publicationYear = py;
+        }
+        
+        virtual void displayInfo(){
+            cout << "The title of the book is " << title << "\n";
+            cout << "The author of the book is " << author << "\n";
+            cout << "The Year of Publication of the book is " << publicationYear << "\n";
+        }
+};
+
+class Books: public LibraryItem{
+    private:
+        int numOfPages;
+    public:
+        Books(string t,string auth,int py,int pg) : LibraryItem(t,auth,py), numOfPages(pg){}
+        
+        void displayInfo() override{
+            LibraryItem::displayInfo();
+            cout << "No. of pages in the book is " << numOfPages << "\n";
+        }
+};
+class Magazines: public LibraryItem{
+    private:
+        int issueNum;
+    public:
+        Magazines(string t,string auth,int py,int iss) : LibraryItem(t,auth,py), issueNum(iss){}
+        
+        void displayInfo() override{
+            LibraryItem::displayInfo();
+            cout << "Issue number of the Magazine is " << issueNum << "\n";
+        }
+};
+
+class eBook: public Books{
+    private:
+        double fileSizeMB;
+    public:
+        eBook(string t,string auth,int py,int pg,double fs) : Books(t,auth,py,pg) , fileSizeMB(fs){}
+            
+        void displayInfo() override{
+            Books::displayInfo();
+            cout << "File Size of the eBook is " << fileSizeMB << "\n";
+        }
+        
+};
+
+
+int main(){
+    
+    vector<LibraryItem*> libraryItems;
+
+    libraryItems.push_back(new Books("One", "Muskan", 2018, 302)); 
+    // Using new allocates memory on the heap rather than the stack. This is important for situations where:
+    //You don’t know the number of objects or their size in advance.
+    //You want the allocated memory to persist beyond the scope in which it was created.
+    //You need more memory than the limited stack can provide, especially for large or numerous objects.
+    libraryItems.push_back(new Magazines("Two", "Sakshi", 2019, 11234));
+    libraryItems.push_back(new eBook("Ninety Nine", "Parmar", 2021, 318, 34.78));
+
+    for (auto item : libraryItems) {
+        item->displayInfo();
+        cout << "----------------\n";
+    }
+
+    // Cleanup: delete all dynamically allocated objects
+    //Since dynamically allocated memory remains until explicitly freed, 
+    //new gives us control over when and where to release that memory using delete. 
+    //This control is essential in systems programming, where efficient memory usage directly impacts performance and reliability.
+    for (auto item : libraryItems) {
+        delete item;
+    }
+    
+    
+    return 0;
+}
