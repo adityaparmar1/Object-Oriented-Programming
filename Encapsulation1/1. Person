@@ -1,0 +1,94 @@
+// 1. Classes , Objects and Access Specifiers
+// Q1. Create a class Person with private properties like name and age.
+// -> Add public functions to set and get these properties.
+// -> Write a main function to create an object of Person , set the properties and display them
+
+// ---------------------------------- Encapsulation --------------------------------------------
+
+
+#include<bits/stdc++.h>
+using namespace std;
+class Person{
+    private:
+       string name;
+       int age;
+    public:
+        void setName(string s){
+            name = s;
+        }
+        void setAge(int a){
+            age = a;
+        }
+        void display(){
+            cout << "Name of the Person is " << name << "\n" << "Age of the person is " << age;
+        }
+};
+int main(){
+    
+    Person aditya;
+    // aditya.name = "Aditya Parmar";
+    // aditya.age = 23;
+    aditya.setName("Aditya Parmar");
+    aditya.setAge(23);
+    aditya.display();
+    
+    return 0;
+}
+
+
+
+// Declaring name and age as private and then using public methods to set and get their values is a core practice in encapsulation, one of the four fundamental principles of Object-Oriented Programming (OOP). Here’s why it’s beneficial:
+
+// Benefits of Declaring Properties as Private
+// Control and Validation:
+
+// By making name and age private, you prevent direct access to them from outside the class. This gives you control over how they are set and retrieved.
+// For example, in the setAge() method, you could add validation to ensure that the age is always positive. If age were publicly accessible, other parts of the code could set it to any value, even negative numbers, which could lead to logical errors.
+// Data Integrity:
+
+// When properties are accessed only through specific methods, you can ensure that they’re always in a valid state.
+// For instance, with the setName() function, you could add restrictions like not allowing empty names. This protects the integrity of the Person object’s data.
+// Abstraction and Encapsulation:
+
+// Encapsulation hides the internal implementation details of a class from the outside world. This allows you to change the underlying representation of name or age without affecting other code that uses the Person class.
+// For example, if you decide to store the name as two separate properties (like firstName and lastName), you could adjust the setName() and getName() methods accordingly without impacting any code that relies on Person.
+// Ease of Maintenance:
+
+// If name and age are private, any modifications to how they are handled are localized within the class. For instance, if you need to log changes to these properties, you can do so within the setName() or setAge() methods.
+// This makes your codebase easier to maintain, as you only need to modify the behavior in one place rather than updating multiple parts of the code that might access these properties.
+// What If name and age Were Public?
+// If name and age were declared as public, they could be accessed and modified from any part of the program without any restrictions. This could lead to potential issues, such as:
+
+// Invalid Data: You could accidentally set age to a nonsensical value like -5, which doesn’t make sense for a person's age. Similarly, name could be set to an empty string, leading to incomplete or incorrect data.
+// Reduced Flexibility: Making these properties public removes the flexibility to later change how they’re stored or validated without affecting other parts of the codebase.
+// Lack of Encapsulation: Public properties go against the principle of encapsulation, as they expose internal data directly and make it harder to control or restrict changes.
+// Example of Validation with Private Properties
+// Here’s an example of how you might add validation:
+
+// cpp
+// Copy code
+// class Person {
+//     private:
+//         string name;
+//         int age;
+//     public:
+//         void setName(string s) {
+//             if (s.empty()) {
+//                 cout << "Name cannot be empty!\n";
+//             } else {
+//                 name = s;
+//             }
+//         }
+        
+//         void setAge(int a) {
+//             if (a < 0) {
+//                 cout << "Age cannot be negative!\n";
+//             } else {
+//                 age = a;
+//             }
+//         }
+        
+//         void display() {
+//             cout << "Name of the Person is " << name << "\n" << "Age of the person is " << age;
+//         }
+// };
