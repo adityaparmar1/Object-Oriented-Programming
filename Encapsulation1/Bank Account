@@ -1,0 +1,44 @@
+// Q2. Design a class BankAccount with private members for account number and balance.
+// -> Add public methods for depositing , withdrawing and checking balance .
+// -> Implement and check functionality in main
+#include<bits/stdc++.h>
+using namespace std;
+
+class BankAccount{
+    private:
+        long long int account_number;
+        int balance;
+    public:
+        BankAccount(long long int an){
+            account_number = an;
+            balance = 0;
+        }
+        void deposit(int b){
+            if(b <= 0) cout << "Amount deposited should be greater than 0" << "\n";
+            else balance += b;
+        }
+        void withdraw(int c){
+            if(c > balance) cout << "Insufficient Balance" << "\n";
+            else if(c <= 0) cout << "Amount to be withdrawn should be greater than 0" << "\n";
+            else balance -= c;
+        }
+        
+        void displayBalance(){
+            cout << "Current Balance is " << balance << "\n";
+        }
+};
+
+int main(){
+    
+    BankAccount Aditya(20427080921);
+    
+    Aditya.deposit(-500);
+    Aditya.withdraw(-300);
+    
+    Aditya.displayBalance();
+    
+    Aditya.withdraw(700);
+    
+    
+    return 0;
+}
